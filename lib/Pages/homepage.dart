@@ -35,9 +35,40 @@ class _HomePageState extends State<HomePage> {
                     var article = snapshot.data!.articles[index];
                     return Container(
                       height: 100,
+                      margin: const EdgeInsets.all(8),
                       child: Row(
                         children: <Widget>[
-                          Image.network(article.urlToImage ?? '')
+                          Card(
+                            clipBehavior: Clip.antiAlias,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: Image.network(article.urlToImage ?? '',
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                          SizedBox(width: 20),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  article.title ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  article.description ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     );
